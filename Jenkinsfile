@@ -1,6 +1,7 @@
 node {
     // Mark the code build 'stage'....
     stage 'Build'
+    checkout scm
     // Run the maven build
     sh "./gradlew clean fatJar"
 
