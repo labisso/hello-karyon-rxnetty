@@ -21,7 +21,7 @@ node {
 
     sh "echo Deploy Container with Nomad"
 
-    sh "Run QA tests"
+    sh "echo Run QA tests"
 
 
     input 'Deploy to Prod?'
