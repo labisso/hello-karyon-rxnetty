@@ -1,12 +1,11 @@
 node {
-    // Mark the code build 'stage'....
+
     stage 'Build'
     checkout scm
-    // Run the maven build
     sh "./gradlew clean fatJar"
-
     def image = docker.build("labisso/hello-karyon-rxnetty")
     image.push()
+
 
     stage 'Integration'
 
@@ -18,6 +17,9 @@ node {
     stage 'QA'
 
     sh "echo Deploy Terraform environment"
+
+    git changelog: false, credentialsId: 'cf983439-429f-4d36-a27d-ae8d29dda57b', poll: false, url: 'https://git.labs.dell.com/scm/trn/terraform-nomad.git', relativeTargetDir: 'terraform-nomad'
+
 
     sh "echo Deploy Container with Nomad"
 
