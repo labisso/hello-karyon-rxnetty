@@ -24,6 +24,8 @@ node {
     git changelog: false, credentialsId: 'cf983439-429f-4d36-a27d-ae8d29dda57b', poll: false, url: 'https://git.labs.dell.com/scm/trn/terraform-nomad.git', relativeTargetDir: 'terraform-nomad'
     writeTerraformVars("terraform.tfvars.json", "dsg/jenkinsnomad1")
 
+    sh "terraform apply"
+
 
     sh "echo Deploy Container with Nomad"
 
@@ -72,7 +74,9 @@ def writeTerraformVars(path, atlasName) {
 }
 
 
+@NonCPS
 def parseJson(json) {
     def jsonSlurper = new JsonSlurper()
-    return jsonSlurper.parseText(json)
+    def map = [:] + jsonSlurper.parseText(json)
+    map
 }
